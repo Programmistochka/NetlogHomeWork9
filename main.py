@@ -97,18 +97,27 @@ def line(n=10):
     print()
     print('---'*n)
 
-def average_grade_by_course(students, course):
+def average_studgrade_by_course(students, course):
     grades_by_course = 0
     amount_grade_by_course = 0
     for stud in students:
-        print(stud)
-        for course_grades in stud['grades'].values():
-            print (course_grades)
-            if course in stud['courses_in_progress']:
-                print(course)
+        for course_grades in stud.grades.values():
+            if course in stud.courses_in_progress:
                 grades_by_course += sum(course_grades)
-                print(grades_by_course)
                 amount_grade_by_course += len(course_grades)
+                break
+    res = grades_by_course / amount_grade_by_course
+    return res
+
+def average_lectgrade_by_course(lectures, course):
+    grades_by_course = 0
+    amount_grade_by_course = 0
+    for lect in lectures:
+        for course_grades in lect.grades.values():
+            if course in lect.courses_atached:
+                grades_by_course += sum(course_grades)
+                amount_grade_by_course += len(course_grades)
+                break
     res = grades_by_course / amount_grade_by_course
     return res
 
@@ -117,6 +126,7 @@ stud2 = Student('Нина', 'Радова', 'ж')
 
 lect1 = Lecturer('Николай', 'Иванович')
 lect2 = Lecturer('Виктория', 'Романовна')
+lect3 = Lecturer('Мария', 'Степановна')
 
 rev1 = Reviewer('Алиса', 'Максимовна')
 rev2 = Reviewer('Михаил', 'Викторович')
@@ -128,6 +138,8 @@ stud2.finished_courses = ['Математика']
 
 lect1.courses_atached += ['Математика', 'Аналитика']
 lect2.courses_atached += ['Русский язык']
+lect3.courses_atached += ['Русский язык']
+
 rev1.courses_atached += ['Русский язык']
 rev2.courses_atached += ['Английский язык']
 
@@ -145,6 +157,8 @@ stud1.rate_lecturer(lect1, 'Математика', 6)
 stud1.rate_lecturer(lect1, 'Аналитика', 6) #не должна попасть в расчет Аналитики нет в текущих курсах
 stud1.rate_lecturer(lect2, 'Русский язык', 8)
 stud1.rate_lecturer(lect2, 'Русский язык', 6)
+stud1.rate_lecturer(lect3, 'Русский язык', 9)
+stud1.rate_lecturer(lect3, 'Русский язык', 9)
 
 print(rev1)
 line()
@@ -159,13 +173,17 @@ print(lect1)
 line()
 print(lect2)
 line()
+print(lect3)
+line()
 print (f'Сравнение лекторов: {lect1.name} {lect1.surname} и {lect2.name} {lect2.surname}')
 print ('Результат: ', lect1 < lect2)
 
 line()
 
 course = 'Математика'
-students = [{'name':'Васильев', 'surname':'Михаил', 'gender':'м', 'finished_courses':[], 'courses_in_progress':['Математика', 'Русский язык'], 'grades':{'Математика':[7,4,10,3,9], 'Русский язык':[3,5,2,5,4]}},
-           {'name':'Петров', 'surname':'Роман', 'gender':'м', 'finished_courses':['Математика'], 'courses_in_progress':['Русский язык'], 'grades':{'Русский язык':[9,5,7,5,4]}}]
 
-print(average_grade_by_course(students, course))
+students = [stud1, stud2]
+print(f'Средний бал за дз студентов по курсу "{course}": {average_studgrade_by_course(students, course)}')
+line()
+lectures = [lect1, lect2, lect3]
+print(f'Средний бал за лекции лекторов по курсу "{course}": {average_lectgrade_by_course(lectures, course)}')
