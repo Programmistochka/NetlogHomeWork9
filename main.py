@@ -165,6 +165,7 @@ stud1.rate_lecturer(lect2, 'Русский язык', 8)
 stud1.rate_lecturer(lect2, 'Русский язык', 6)
 stud1.rate_lecturer(lect3, 'Русский язык', 9)
 stud1.rate_lecturer(lect3, 'Русский язык', 9)
+stud1.rate_lecturer(lect3, 'Русский язык', 5)
 
 print(rev1)
 line()
@@ -186,14 +187,14 @@ print ('Результат: ', lect1 > lect2)
 
 line()
 
-course = 'Английский язык'
-print(stud1.grades)
-print(stud2.grades)
+course = 'Русский язык'
+#print(stud1.grades)
+#print(stud2.grades)
 students = [stud1, stud2]
 print(f'Средний бал за дз студентов по курсу "{course}": {average_studgrade_by_course(students, course)}')
 line()
 lectures = [lect1, lect2, lect3]
-print(lect1.grades)
-print(lect2.grades)
-print(lect3.grades)
+#print(lect1.grades)
+#print(lect2.grades)
+#print(lect3.grades)
 print(f'Средний бал за лекции лекторов по курсу "{course}": {average_lectgrade_by_course(lectures, course)}')
